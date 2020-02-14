@@ -28,6 +28,6 @@ if [ ! -z ${JENKINS_SERVICE_HOST} ]; then
 	echo "Remoting downloaded"
 
 fi
-java -jar ${JAR} #${JENKINS_URL} ${JENKINS_SECRET}
+java -cp ${JAR} hudson.remoting.jnlp.Main -headless  #${JENKINS_URL} ${JENKINS_SECRET}
 
 echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
