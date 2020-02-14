@@ -1,6 +1,6 @@
 #!/bin/bash
 
-baseimage="centos"
+baseimage="centos:8"
 micont=$(buildah from ${baseimage})
 
 buildah config --label maintainer="Fabian Salamanca <fsalamanca@ibm.com>" ${micont}
@@ -22,10 +22,12 @@ buildah config --workingdir /home/jenkins ${micont}
 
 buildah commit ${micont} quay.io/fabstao/tslave2
 
-podman tag quay.io/fabstao/tslave2 quay.io/fabstao/tslave2:latest
+podman tag quay.io/fabstao/tslave2 quay.io/fabstao/tslave2:2
+podman tag quay.io/fabstao/tslave2:2 quay.io/fabstao/tslave2:latest
 
 echo "Subiendo imagen"
 echo
+podman push quay.io/fabstao/tslave2:2
 podman push quay.io/fabstao/tslave2:latest
 echo "FIN"
 
