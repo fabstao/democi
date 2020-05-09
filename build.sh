@@ -1,7 +1,7 @@
 #!/bin/bash
 
-VER=3
-baseimage="centos:8"
+VER=5.1
+baseimage="quay.io/fabstao/centos8-jdk11"
 micont=$(buildah from ${baseimage})
 
 buildah config --label maintainer="Fabian Salamanca <fsalamanca@ibm.com>" ${micont}
@@ -9,16 +9,12 @@ buildah config --author "Fabian Salamanca <fsalamanca@ibm.com>" ${micont}
 
 # Install packages
 
-buildah run ${micont} dnf -y install java-11-openjdk-devel curl maven
-buildah run ${micont} useradd -d /home/jenkins -m jenkins
-
 buildah copy ${micont} ./check.sh /usr/bin
 
 # Image configuration
 
 buildah config --user jenkins ${micont}
 buildah config --entrypoint /usr/bin/check.sh ${micont}
-buildah config --workingdir /home/jenkins ${micont}
 #buildah config --port 8080
 
 buildah commit ${micont} quay.io/fabstao/tslave2
@@ -28,7 +24,8 @@ buildah tag quay.io/fabstao/tslave2:${VER} quay.io/fabstao/tslave2:latest
 
 echo "Subiendo imagen"
 echo
-podman push quay.io/fabstao/tslave2:${VER}
-podman push quay.io/fabstao/tslave2:latest
+buildah login quay.io
+buildah push quay.io/fabstao/tslave2:${VER}
+buildah push quay.io/fabstao/tslave2:latest
 echo "FIN"
 
