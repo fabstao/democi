@@ -14,15 +14,16 @@ JAR="${JENKINS_HOME}/remoting.jar"
 
 echo "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"
 echo
-#echo "JENKINS Service:port  |  HOME"
-#echo "${JENKINS_SERVICE_HOST}  : ${JENKINS_SERVICE_PORT}    |  ${JENKINS_HOME}"
-#echo
+echo "JENKINS Service:port  |  HOME"
+echo "${JENKINS_SERVICE_HOST}  : ${JENKINS_SERVICE_PORT}    |  ${JENKINS_HOME}"
+echo
 echo "JENKINS Tunnel - Jenkins URL"
 echo "${JENKINS_TUNNEL}  |   ${JENKINS_URL}"
 echo
 echo "JENKINS Secret"
 echo ${JENKINS_SECRET}
 
+JENKINS_URL="http://${JENKINS_SERVICE_HOST}:${JENKINS_SERVICE_PORT}"
 echo " curl: ${JENKINS_URL}/jnlpJars/remoting.jar -o ${JAR}"
 curl -sS ${JENKINS_URL}/jnlpJars/remoting.jar -o ${JAR}
 echo "Remoting downloaded"

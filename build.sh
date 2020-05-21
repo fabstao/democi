@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VER=5.1
+VER=6
 baseimage="quay.io/fabstao/centos8-jdk11"
 micont=$(buildah from ${baseimage})
 
